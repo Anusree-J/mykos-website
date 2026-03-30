@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mykos — Everyone deserves a chief of staff</title>
+  <meta name="description" content="Mykos is your AI chief of staff. It connects the dots, moves things forward, and makes sure nothing falls through the cracks. My CoS. For everyone.">
+  <meta property="og:title" content="Mykos — Everyone deserves a chief of staff">
+  <meta property="og:description" content="Your AI chief of staff that connects the dots, moves things forward, and handles your day.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sage: #5B8A72;
+      --sage-light: #6d9d84;
+      --charcoal: #222222;
+      --offwhite: #FAFAF8;
+      --stone: #E8E4DD;
+      --terracotta: #C4956A;
+      --dusty-blue: #7B9EC4;
+      --lavender: #8B7BB5;
+      --sand: #C4A07B;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--charcoal);
+      background-color: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+
+    .serif { font-family: 'Source Serif 4', Georgia, serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+    .fade-in-d1 { animation: fadeInUp 0.8s ease-out 0.15s forwards; opacity: 0; }
+    .fade-in-d2 { animation: fadeInUp 0.8s ease-out 0.3s forwards; opacity: 0; }
+    .fade-in-d3 { animation: fadeInUp 0.8s ease-out 0.45s forwards; opacity: 0; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(250, 250, 248, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 228, 221, 0.5);
+    }
+    nav {
+      max-width: 72rem; margin: 0 auto; padding: 0 1.5rem;
+      height: 4rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 0.625rem; }
+    .logo span { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.025em; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.875rem; color: rgba(34,34,34,0.6); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--charcoal); }
+    .btn-primary {
+      display: inline-flex; align-items: center;
+      padding: 0.5rem 1.25rem; background: var(--sage); color: #fff;
+      font-size: 0.875rem; font-weight: 500; border-radius: 9999px;
+      transition: background 0.2s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--sage-light); }
+    .btn-primary-lg { padding: 0.875rem 2rem; font-size: 1rem; }
+    .btn-outline {
+      display: inline-flex; align-items: center;
+      padding: 0.875rem 2rem; color: rgba(34,34,34,0.6);
+      font-weight: 500; border-radius: 9999px; font-size: 1rem;
+      border: 1px solid var(--stone); transition: border-color 0.2s;
+      background: none; cursor: pointer;
+    }
+    .btn-outline:hover { border-color: rgba(34,34,34,0.2); }
+
+    /* Mobile menu */
+    .menu-toggle { display: none; padding: 0.5rem; background: none; border: none; cursor: pointer; }
+    .mobile-menu {
+      display: none; padding: 1rem 1.5rem; background: var(--offwhite);
+      border-bottom: 1px solid rgba(232, 228, 221, 0.5);
+    }
+    .mobile-menu a { display: block; padding: 0.5rem 0; font-size: 0.875rem; color: rgba(34,34,34,0.6); }
+    .mobile-menu .btn-primary { margin-top: 0.5rem; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 4rem 1.5rem 0;
+    }
+    .hero-inner { max-width: 48rem; margin: 0 auto; text-align: center; }
+    .hero h1 {
+      font-size: 3rem; font-weight: 500; letter-spacing: -0.025em;
+      line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero h1 .sage { color: var(--sage); }
+    .hero p { font-size: 1.125rem; color: rgba(34,34,34,0.6); max-width: 36rem; margin: 0 auto; line-height: 1.7; }
+    .hero-buttons { margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .hero-sub {
+      margin-top: 4rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+      font-size: 0.75rem; color: rgba(34,34,34,0.3); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .hero-sub .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(34,34,34,0.2); }
+
+    /* Section shared */
+    section { padding: 6rem 1.5rem; }
+    .section-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--sage); margin-bottom: 1rem;
+    }
+    .section-title { font-size: 1.875rem; font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
+
+    /* Story */
+    .story-grid {
+      max-width: 56rem; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .story-text h2 { margin-bottom: 1.5rem; }
+    .story-text p { color: rgba(34,34,34,0.6); line-height: 1.7; margin-bottom: 1rem; }
+    .story-text .highlight { color: var(--charcoal); font-family: 'DM Sans', sans-serif; font-weight: 500; }
+
+    /* Features */
+    .features-section { background: rgba(232, 228, 221, 0.3); }
+    .features-header { text-align: center; margin-bottom: 4rem; }
+    .features-grid {
+      max-width: 72rem; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    .feature-card {
+      background: var(--offwhite); border-radius: 1rem; padding: 2rem;
+      border: 1px solid rgba(232, 228, 221, 0.5); transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(91, 138, 114, 0.3); }
+    .feature-card svg { margin-bottom: 1.25rem; }
+    .feature-card h3 { font-size: 1.125rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.875rem; color: rgba(34,34,34,0.5); line-height: 1.6; }
+
+    /* How it works */
+    .steps { max-width: 56rem; margin: 0 auto; }
+    .steps-header { text-align: center; margin-bottom: 4rem; }
+    .step { display: flex; gap: 2.5rem; align-items: flex-start; margin-bottom: 2rem; }
+    .step-num {
+      flex-shrink: 0; width: 3.5rem; height: 3.5rem; border-radius: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; font-weight: 500; color: rgba(34,34,34,0.6);
+    }
+    .step-num.blue { background: rgba(123, 158, 196, 0.2); }
+    .step-num.purple { background: rgba(139, 123, 181, 0.2); }
+    .step-num.terra { background: rgba(196, 149, 106, 0.2); }
+    .step h3 { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .step p { color: rgba(34,34,34,0.5); line-height: 1.7; }
+
+    /* CTA */
+    .cta { background: var(--charcoal); text-align: center; }
+    .cta-inner { max-width: 36rem; margin: 0 auto; }
+    .cta .section-title { color: #fff; margin-bottom: 1rem; }
+    .cta p.desc { color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 2.5rem; }
+    .cta-form { display: flex; gap: 0.75rem; max-width: 28rem; margin: 0 auto; }
+    .cta-form input {
+      flex: 1; padding: 0.875rem 1.25rem; border-radius: 9999px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; font-size: 0.875rem; font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.3); }
+    .cta-form input:focus { border-color: rgba(91, 138, 114, 0.5); }
+    .cta-note { margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.2); }
+    .cta-success {
+      display: none; background: rgba(91,138,114,0.1); border: 1px solid rgba(91,138,114,0.2);
+      border-radius: 1rem; padding: 1.5rem; max-width: 28rem; margin: 0 auto;
+    }
+    .cta-success .check { color: var(--sage); font-weight: 500; }
+    .cta-success .sub { color: rgba(255,255,255,0.4); font-size: 0.875rem; margin-top: 0.25rem; }
+
+    /* Footer */
+    footer {
+      padding: 3rem 1.5rem; border-top: 1px solid rgba(232, 228, 221, 0.5);
+    }
+    .footer-inner {
+      max-width: 72rem; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-inner .logo span { font-size: 0.875rem; color: rgba(34,34,34,0.6); }
+    .footer-inner p { font-size: 0.75rem; color: rgba(34,34,34,0.3); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
+      .hero h1 { font-size: 2.25rem; }
+      .hero p { font-size: 1rem; }
+      .story-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .story-svg { max-width: 280px; margin: 0 auto; }
+      .features-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.5rem; }
+      .step { gap: 1.5rem; }
+      .cta-form { flex-direction: column; }
+      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 3.5rem; }
+    }
+    @media (min-width: 1025px) {
+      .hero h1 { font-size: 4.5rem; }
+      .hero p { font-size: 1.25rem; }
+      section { padding: 8rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="#" class="logo">
+        <svg width="34" height="28" viewBox="0 0 48 40" fill="none" aria-hidden="true">
+          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="18" cy="12" r="3" fill="#5B8A72" opacity="0.6"/>
+          <circle cx="40" cy="8" r="2.5" fill="#5B8A72" opacity="0.5"/>
+        </svg>
+        <span>mykos</span>
+      </a>
+      <div class="nav-links">
+        <a href="#story">Story</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#cta" class="btn-primary">Get early access</a>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+        <svg id="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#story" onclick="toggleMenu()">Story</a>
+      <a href="#features" onclick="toggleMenu()">Features</a>
+      <a href="#how-it-works" onclick="toggleMenu()">How it works</a>
+      <a href="#cta" class="btn-primary" onclick="toggleMenu()">Get early access</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="fade-in" style="display:flex;justify-content:center;margin-bottom:2rem;">
+        <svg width="86" height="72" viewBox="0 0 48 40" fill="none" aria-hidden="true">
+          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="18" cy="12" r="3.5" fill="#8B7BB5" opacity="0.9"/>
+          <circle cx="40" cy="8" r="3" fill="#7B9EC4" opacity="0.9"/>
+          <circle cx="4" cy="32" r="3" fill="#C4956A" opacity="0.9"/>
+        </svg>
+      </div>
+      <h1 class="fade-in-d1">Everyone deserves<br><span class="sage">a chief of staff.</span></h1>
+      <p class="fade-in-d2 serif">Mykos connects the dots, moves things forward, and makes sure nothing falls through the cracks. Your day, handled.</p>
+      <div class="hero-buttons fade-in-d3">
+        <a href="#cta" class="btn-primary btn-primary-lg">Get early access</a>
+        <a href="#story" class="btn-outline">Learn more</a>
+      </div>
+      <div class="hero-sub fade-in-d3">
+        <span>My CoS</span>
+        <span class="dot"></span>
+        <span>For everyone</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section id="story">
+    <div class="story-grid">
+      <div class="story-svg">
+        <svg viewBox="0 0 400 400" width="100%" fill="none">
+          <path d="M80 320 C120 280, 140 200, 200 200" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C260 200, 280 120, 320 80" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C220 240, 280 260, 340 280" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C160 180, 120 140, 80 100" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C180 240, 140 280, 100 300" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C240 180, 300 160, 340 140" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
+          <path d="M200 200 C200 160, 200 120, 200 80" stroke="#5B8A72" stroke-width="1.5" opacity="0.2"/>
+          <path d="M200 200 C240 220, 280 240, 320 320" stroke="#5B8A72" stroke-width="1.5" opacity="0.2"/>
+          <circle cx="200" cy="200" r="8" fill="#5B8A72" opacity="0.8"/>
+          <circle cx="80" cy="320" r="5" fill="#C4956A" opacity="0.7"/>
+          <circle cx="320" cy="80" r="5" fill="#7B9EC4" opacity="0.7"/>
+          <circle cx="340" cy="280" r="4" fill="#8B7BB5" opacity="0.7"/>
+          <circle cx="80" cy="100" r="4" fill="#C4A07B" opacity="0.7"/>
+          <circle cx="100" cy="300" r="3.5" fill="#7B9EC4" opacity="0.6"/>
+          <circle cx="340" cy="140" r="3.5" fill="#C4956A" opacity="0.6"/>
+          <circle cx="200" cy="80" r="3" fill="#8B7BB5" opacity="0.5"/>
+          <circle cx="320" cy="320" r="3" fill="#C4A07B" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="story-text">
+        <p class="section-label">Why Mykos</p>
+        <h2 class="section-title">Named after nature's invisible<br>infrastructure.</h2>
+        <p class="serif">Underground fungal networks — mycelium — connect trees, share resources, and keep entire forests alive. No one sees them work. That's the point.</p>
+        <p class="serif">A chief of staff does the same thing for people. They connect the dots, move things forward, and make sure nothing falls through the cracks.</p>
+        <p class="serif">Until now, only CEOs and executives had one. <span class="highlight">Mykos changes that.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features-section">
+    <div class="features-header">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Your invisible infrastructure.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="8" cy="8" r="3" fill="#7B9EC4" opacity="0.7"/>
+          <circle cx="24" cy="8" r="3" fill="#8B7BB5" opacity="0.7"/>
+          <circle cx="16" cy="24" r="3" fill="#C4956A" opacity="0.7"/>
+          <path d="M8 8L24 8M8 8L16 24M24 8L16 24" stroke="#5B8A72" stroke-width="1.5" opacity="0.4"/>
+        </svg>
+        <h3>Connect the dots</h3>
+        <p class="serif">Mykos sees across your calendar, email, tasks, and conversations — surfacing what matters and linking related threads together.</p>
+      </div>
+      <div class="feature-card">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M6 16H26M26 16L20 10M26 16L20 22" stroke="#5B8A72" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Move things forward</h3>
+        <p class="serif">Automatic follow-ups, gentle nudges, and smart scheduling. Mykos keeps your projects and relationships moving without you having to chase.</p>
+      </div>
+      <div class="feature-card">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="10" stroke="#5B8A72" stroke-width="2" opacity="0.4"/>
+          <path d="M12 16L15 19L21 13" stroke="#5B8A72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Nothing falls through</h3>
+        <p class="serif">Every commitment tracked, every loose end flagged. Mykos remembers what you said you'd do — and makes sure it happens.</p>
+      </div>
+      <div class="feature-card">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 6C16 6 8 12 8 18C8 24 12 26 16 26C20 26 24 24 24 18C24 12 16 6 16 6Z" stroke="#5B8A72" stroke-width="2" opacity="0.4"/>
+          <circle cx="16" cy="18" r="2" fill="#C4956A" opacity="0.7"/>
+        </svg>
+        <h3>The quiet force</h3>
+        <p class="serif">Like mycelium, Mykos works in the background. No noise, no clutter — just the right information at the right time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works">
+    <div class="steps">
+      <div class="steps-header">
+        <p class="section-label">How it works</p>
+        <h2 class="section-title">Three steps to clarity.</h2>
+      </div>
+      <div class="step">
+        <div class="step-num blue mono">01</div>
+        <div>
+          <h3>Connect your world</h3>
+          <p class="serif">Link your calendar, email, and tools. Mykos maps the relationships between your tasks, people, and commitments.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num purple mono">02</div>
+        <div>
+          <h3>Let it learn</h3>
+          <p class="serif">Mykos quietly observes how you work — your priorities, your patterns, your preferences. It adapts to you, not the other way around.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num terra mono">03</div>
+        <div>
+          <h3>Stay in flow</h3>
+          <p class="serif">Get proactive briefings, smart reminders, and contextual suggestions. Everything you need, nothing you don't.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="cta">
+    <div class="cta-inner">
+      <p class="section-label">Early access</p>
+      <h2 class="section-title">Your day, handled.</h2>
+      <p class="desc serif">Join the waitlist and be among the first to experience what it's like to have a chief of staff working quietly behind the scenes.</p>
+      <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event)">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn-primary btn-primary-lg">Join waitlist</button>
+      </form>
+      <div class="cta-success" id="cta-success">
+        <p class="check">You're on the list.</p>
+        <p class="sub">We'll be in touch soon.</p>
+      </div>
+      <p class="cta-note">No spam. Just updates when we launch.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#" class="logo">
+        <svg width="24" height="20" viewBox="0 0 48 40" fill="none" aria-hidden="true">
+          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <circle cx="18" cy="12" r="3" fill="#5B8A72" opacity="0.6"/>
+          <circle cx="40" cy="8" r="2.5" fill="#5B8A72" opacity="0.5"/>
+        </svg>
+        <span>mykos</span>
+      </a>
+      <p>The quiet force behind your day.</p>
+      <p>&copy; 2026 Mykos. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('mobile-menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('cta-form').style.display = 'none';
+      document.getElementById('cta-success').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
