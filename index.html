@@ -4,20 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mykos — Everyone deserves a chief of staff</title>
-  <meta name="description" content="Mykos is your AI chief of staff. It connects the dots, moves things forward, and makes sure nothing falls through the cracks. My CoS. For everyone.">
+  <meta name="description" content="Mykos is your AI chief of staff. It connects the dots, moves things forward, and makes sure nothing falls through the cracks.">
   <meta property="og:title" content="Mykos — Everyone deserves a chief of staff">
   <meta property="og:description" content="Your AI chief of staff that connects the dots, moves things forward, and handles your day.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --sage: #5B8A72;
+      --sage-dark: #4a7360;
       --sage-light: #6d9d84;
-      --charcoal: #222222;
+      --charcoal: #1a1a1a;
       --offwhite: #FAFAF8;
       --stone: #E8E4DD;
+      --stone-light: #f0ede8;
       --terracotta: #C4956A;
       --dusty-blue: #7B9EC4;
       --lavender: #8B7BB5;
@@ -25,224 +27,430 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--charcoal);
       background-color: var(--offwhite);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     .serif { font-family: 'Source Serif 4', Georgia, serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-
     a { text-decoration: none; color: inherit; }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
+    /* ─── Animations ─── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { animation: fadeInUp 0.8s ease-out forwards; }
-    .fade-in-d1 { animation: fadeInUp 0.8s ease-out 0.15s forwards; opacity: 0; }
-    .fade-in-d2 { animation: fadeInUp 0.8s ease-out 0.3s forwards; opacity: 0; }
-    .fade-in-d3 { animation: fadeInUp 0.8s ease-out 0.45s forwards; opacity: 0; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    /* Header */
+    /* ─── Header ─── */
     header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: rgba(250, 250, 248, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(232, 228, 221, 0.5);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250, 250, 248, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     }
     nav {
-      max-width: 72rem; margin: 0 auto; padding: 0 1.5rem;
-      height: 4rem; display: flex; align-items: center; justify-content: space-between;
+      max-width: 1120px; margin: 0 auto; padding: 0 2rem;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
     }
-    .logo { display: flex; align-items: center; gap: 0.625rem; }
-    .logo span { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.025em; }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a { font-size: 0.875rem; color: rgba(34,34,34,0.6); transition: color 0.2s; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 32px; height: 32px; position: relative;
+    }
+    .logo-mark .dot {
+      position: absolute; border-radius: 50%;
+    }
+    .logo-mark .dot-1 { width: 8px; height: 8px; background: var(--sage); top: 4px; left: 12px; }
+    .logo-mark .dot-2 { width: 6px; height: 6px; background: var(--dusty-blue); top: 14px; left: 4px; opacity: 0.8; }
+    .logo-mark .dot-3 { width: 6px; height: 6px; background: var(--lavender); top: 14px; left: 22px; opacity: 0.8; }
+    .logo-mark .dot-4 { width: 5px; height: 5px; background: var(--terracotta); top: 24px; left: 14px; opacity: 0.7; }
+    .logo-mark .line {
+      position: absolute; background: var(--sage); opacity: 0.2; border-radius: 1px;
+    }
+    .logo-mark .line-1 { width: 1.5px; height: 12px; top: 10px; left: 14px; transform: rotate(-20deg); }
+    .logo-mark .line-2 { width: 1.5px; height: 10px; top: 10px; left: 10px; transform: rotate(15deg); }
+    .logo-mark .line-3 { width: 1.5px; height: 10px; top: 12px; left: 22px; transform: rotate(-10deg); }
+    .logo-text {
+      font-size: 1.25rem; font-weight: 600; letter-spacing: -0.03em; color: var(--charcoal);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 400; color: rgba(26,26,26,0.5);
+      transition: color 0.2s;
+    }
     .nav-links a:hover { color: var(--charcoal); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'DM Sans', sans-serif; font-weight: 500; border: none; cursor: pointer;
+      transition: all 0.25s ease;
+    }
     .btn-primary {
-      display: inline-flex; align-items: center;
-      padding: 0.5rem 1.25rem; background: var(--sage); color: #fff;
-      font-size: 0.875rem; font-weight: 500; border-radius: 9999px;
-      transition: background 0.2s; border: none; cursor: pointer;
+      padding: 10px 24px; background: var(--charcoal); color: #fff;
+      font-size: 0.875rem; border-radius: 8px;
     }
-    .btn-primary:hover { background: var(--sage-light); }
-    .btn-primary-lg { padding: 0.875rem 2rem; font-size: 1rem; }
-    .btn-outline {
-      display: inline-flex; align-items: center;
-      padding: 0.875rem 2rem; color: rgba(34,34,34,0.6);
-      font-weight: 500; border-radius: 9999px; font-size: 1rem;
-      border: 1px solid var(--stone); transition: border-color 0.2s;
-      background: none; cursor: pointer;
+    .btn-primary:hover { background: #333; transform: translateY(-1px); }
+    .btn-primary-lg { padding: 14px 32px; font-size: 0.9375rem; border-radius: 10px; }
+    .btn-secondary {
+      padding: 14px 32px; font-size: 0.9375rem; border-radius: 10px;
+      background: transparent; color: var(--charcoal);
+      border: 1.5px solid var(--stone);
     }
-    .btn-outline:hover { border-color: rgba(34,34,34,0.2); }
+    .btn-secondary:hover { border-color: #ccc; transform: translateY(-1px); }
 
     /* Mobile menu */
-    .menu-toggle { display: none; padding: 0.5rem; background: none; border: none; cursor: pointer; }
-    .mobile-menu {
-      display: none; padding: 1rem 1.5rem; background: var(--offwhite);
-      border-bottom: 1px solid rgba(232, 228, 221, 0.5);
+    .menu-toggle {
+      display: none; padding: 8px; background: none; border: none; cursor: pointer;
+      color: var(--charcoal);
     }
-    .mobile-menu a { display: block; padding: 0.5rem 0; font-size: 0.875rem; color: rgba(34,34,34,0.6); }
-    .mobile-menu .btn-primary { margin-top: 0.5rem; }
+    .mobile-menu {
+      display: none; padding: 1rem 2rem 1.5rem; background: var(--offwhite);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .mobile-menu a {
+      display: block; padding: 10px 0; font-size: 0.9375rem; color: rgba(26,26,26,0.6);
+    }
+    .mobile-menu .btn-primary { margin-top: 8px; width: 100%; text-align: center; }
 
-    /* Hero */
+    /* ─── Hero ─── */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      padding: 4rem 1.5rem 0;
+      padding: 80px 2rem 60px; position: relative;
     }
-    .hero-inner { max-width: 48rem; margin: 0 auto; text-align: center; }
+    .hero-bg {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+    }
+    .hero-bg svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .hero-inner {
+      max-width: 720px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px 6px 8px; border-radius: 100px;
+      background: rgba(91, 138, 114, 0.08); border: 1px solid rgba(91, 138, 114, 0.15);
+      font-size: 0.8125rem; color: var(--sage-dark); font-weight: 500;
+      margin-bottom: 2.5rem;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    .hero-badge .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--sage);
+      animation: pulse 2s ease infinite;
+    }
     .hero h1 {
-      font-size: 3rem; font-weight: 500; letter-spacing: -0.025em;
-      line-height: 1.1; margin-bottom: 1.5rem;
+      font-size: 3.5rem; font-weight: 600; letter-spacing: -0.035em;
+      line-height: 1.08; margin-bottom: 1.5rem; color: var(--charcoal);
+      animation: fadeIn 0.7s ease-out 0.1s forwards; opacity: 0;
     }
-    .hero h1 .sage { color: var(--sage); }
-    .hero p { font-size: 1.125rem; color: rgba(34,34,34,0.6); max-width: 36rem; margin: 0 auto; line-height: 1.7; }
-    .hero-buttons { margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .hero-sub {
-      margin-top: 4rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem;
-      font-size: 0.75rem; color: rgba(34,34,34,0.3); text-transform: uppercase; letter-spacing: 0.1em;
+    .hero h1 em {
+      font-style: italic; font-family: 'Source Serif 4', Georgia, serif;
+      color: var(--sage); font-weight: 500;
     }
-    .hero-sub .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(34,34,34,0.2); }
+    .hero .subtitle {
+      font-size: 1.1875rem; color: rgba(26,26,26,0.5); max-width: 480px;
+      margin: 0 auto; line-height: 1.65; font-weight: 400;
+      animation: fadeIn 0.7s ease-out 0.25s forwards; opacity: 0;
+    }
+    .hero-actions {
+      margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+      animation: fadeIn 0.7s ease-out 0.4s forwards; opacity: 0;
+    }
+    .hero-name-breakdown {
+      font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+      color: var(--sage); letter-spacing: 0.04em; margin-bottom: 1.25rem;
+    }
+    .nb-my { font-weight: 600; }
+    .nb-dot { margin: 0 2px; opacity: 0.3; }
+    .nb-cos { font-weight: 600; }
+    .hero-tag {
+      margin-top: 5rem; font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: rgba(26,26,26,0.25); font-weight: 500;
+      animation: fadeIn 0.7s ease-out 0.55s forwards; opacity: 0;
+    }
 
-    /* Section shared */
-    section { padding: 6rem 1.5rem; }
+    /* ─── Examples / Demo ─── */
+    .examples-section { background: var(--offwhite); }
+    .examples-header { text-align: center; margin-bottom: 56px; }
+    .examples-header .section-subtitle { margin-left: auto; margin-right: auto; }
+    .examples-grid {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .example-card {
+      background: var(--stone-light); border-radius: 16px; padding: 28px 32px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .example-user {
+      display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;
+    }
+    .example-avatar {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
+      background: var(--stone); display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; color: rgba(26,26,26,0.5);
+    }
+    .example-avatar.mykos-av { background: rgba(91,138,114,0.15); color: var(--sage); }
+    .example-msg {
+      padding: 10px 16px; border-radius: 12px; font-size: 0.9375rem; line-height: 1.55;
+      max-width: 85%;
+    }
+    .example-user .example-msg {
+      background: var(--offwhite); color: var(--charcoal);
+    }
+    .example-reply {
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .example-reply .example-msg {
+      background: rgba(91,138,114,0.08); color: rgba(26,26,26,0.7);
+      border: 1px solid rgba(91,138,114,0.1);
+    }
+    .example-reply .example-msg strong { color: var(--charcoal); font-weight: 500; }
+    .example-label {
+      font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(26,26,26,0.3); margin-bottom: 16px; font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .example-msg { max-width: 100%; }
+      .example-card { padding: 20px; }
+    }
+
+    /* ─── Section commons ─── */
+    section { padding: 100px 2rem; }
+    .container { max-width: 1120px; margin: 0 auto; }
     .section-label {
-      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--sage); margin-bottom: 1rem;
+      font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--sage); font-weight: 600; margin-bottom: 12px;
     }
-    .section-title { font-size: 1.875rem; font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
+    .section-title {
+      font-size: 2.25rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15;
+    }
+    .section-subtitle {
+      font-size: 1.0625rem; color: rgba(26,26,26,0.5); line-height: 1.65;
+      margin-top: 16px; max-width: 480px;
+    }
 
-    /* Story */
+    /* ─── Story ─── */
+    .story-section { background: var(--offwhite); }
     .story-grid {
-      max-width: 56rem; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
     }
-    .story-text h2 { margin-bottom: 1.5rem; }
-    .story-text p { color: rgba(34,34,34,0.6); line-height: 1.7; margin-bottom: 1rem; }
-    .story-text .highlight { color: var(--charcoal); font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    .story-visual {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 1; background: var(--stone-light); border-radius: 24px; overflow: hidden;
+    }
+    .story-visual svg { width: 70%; height: 70%; }
+    .story-content .section-title { margin-bottom: 24px; }
+    .story-content p {
+      color: rgba(26,26,26,0.55); line-height: 1.75; margin-bottom: 12px; font-size: 1.0625rem;
+    }
+    .story-content .highlight {
+      color: var(--charcoal); font-weight: 500; font-family: 'DM Sans', sans-serif;
+    }
 
-    /* Features */
-    .features-section { background: rgba(232, 228, 221, 0.3); }
-    .features-header { text-align: center; margin-bottom: 4rem; }
+    /* ─── Features ─── */
+    .features-section { background: var(--stone-light); }
+    .features-header { margin-bottom: 56px; }
     .features-grid {
-      max-width: 72rem; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
     .feature-card {
-      background: var(--offwhite); border-radius: 1rem; padding: 2rem;
-      border: 1px solid rgba(232, 228, 221, 0.5); transition: border-color 0.2s;
+      background: var(--offwhite); border-radius: 16px; padding: 32px;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .feature-card:hover { border-color: rgba(91, 138, 114, 0.3); }
-    .feature-card svg { margin-bottom: 1.25rem; }
-    .feature-card h3 { font-size: 1.125rem; font-weight: 500; margin-bottom: 0.5rem; }
-    .feature-card p { font-size: 0.875rem; color: rgba(34,34,34,0.5); line-height: 1.6; }
-
-    /* How it works */
-    .steps { max-width: 56rem; margin: 0 auto; }
-    .steps-header { text-align: center; margin-bottom: 4rem; }
-    .step { display: flex; gap: 2.5rem; align-items: flex-start; margin-bottom: 2rem; }
-    .step-num {
-      flex-shrink: 0; width: 3.5rem; height: 3.5rem; border-radius: 1rem;
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.875rem; font-weight: 500; color: rgba(34,34,34,0.6);
+      margin-bottom: 20px;
     }
-    .step-num.blue { background: rgba(123, 158, 196, 0.2); }
-    .step-num.purple { background: rgba(139, 123, 181, 0.2); }
-    .step-num.terra { background: rgba(196, 149, 106, 0.2); }
-    .step h3 { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; }
-    .step p { color: rgba(34,34,34,0.5); line-height: 1.7; }
+    .feature-icon.blue { background: rgba(123, 158, 196, 0.15); }
+    .feature-icon.purple { background: rgba(139, 123, 181, 0.15); }
+    .feature-icon.terra { background: rgba(196, 149, 106, 0.15); }
+    .feature-icon.sage { background: rgba(91, 138, 114, 0.15); }
+    .feature-card h3 {
+      font-size: 1.0625rem; font-weight: 600; margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .feature-card p {
+      font-size: 0.9375rem; color: rgba(26,26,26,0.5); line-height: 1.6;
+    }
 
-    /* CTA */
-    .cta { background: var(--charcoal); text-align: center; }
-    .cta-inner { max-width: 36rem; margin: 0 auto; }
-    .cta .section-title { color: #fff; margin-bottom: 1rem; }
-    .cta p.desc { color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 2.5rem; }
-    .cta-form { display: flex; gap: 0.75rem; max-width: 28rem; margin: 0 auto; }
+    /* ─── How it works ─── */
+    .how-section { background: var(--offwhite); }
+    .how-header { text-align: center; margin-bottom: 64px; }
+    .how-header .section-subtitle { margin-left: auto; margin-right: auto; }
+    .steps-grid {
+      max-width: 640px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .step-item {
+      display: flex; gap: 24px; align-items: flex-start;
+      padding: 32px 0; position: relative;
+    }
+    .step-item + .step-item { border-top: 1px solid rgba(0,0,0,0.06); }
+    .step-number {
+      flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 500;
+    }
+    .step-number.n1 { background: rgba(123, 158, 196, 0.12); color: var(--dusty-blue); }
+    .step-number.n2 { background: rgba(139, 123, 181, 0.12); color: var(--lavender); }
+    .step-number.n3 { background: rgba(196, 149, 106, 0.12); color: var(--terracotta); }
+    .step-content h3 {
+      font-size: 1.125rem; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .step-content p {
+      font-size: 0.9375rem; color: rgba(26,26,26,0.5); line-height: 1.65;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--charcoal); position: relative; overflow: hidden;
+    }
+    .cta-inner {
+      max-width: 520px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
+    }
+    .cta-inner .section-title { color: #fff; margin-bottom: 12px; }
+    .cta-inner .section-subtitle {
+      color: rgba(255,255,255,0.4); margin: 0 auto 32px;
+    }
+    .cta-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
     .cta-form input {
-      flex: 1; padding: 0.875rem 1.25rem; border-radius: 9999px;
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
-      color: #fff; font-size: 0.875rem; font-family: 'DM Sans', sans-serif;
-      outline: none; transition: border-color 0.2s;
+      flex: 1; padding: 14px 18px; border-radius: 10px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; font-size: 0.9375rem; font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color 0.2s, background 0.2s;
     }
-    .cta-form input::placeholder { color: rgba(255,255,255,0.3); }
-    .cta-form input:focus { border-color: rgba(91, 138, 114, 0.5); }
-    .cta-note { margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.2); }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.25); }
+    .cta-form input:focus {
+      border-color: rgba(91, 138, 114, 0.5);
+      background: rgba(255,255,255,0.1);
+    }
+    .cta-form .btn-cta {
+      padding: 14px 28px; background: var(--sage); color: #fff;
+      font-size: 0.9375rem; font-weight: 500; border-radius: 10px;
+      border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .cta-form .btn-cta:hover { background: var(--sage-light); }
+    .cta-note {
+      margin-top: 16px; font-size: 0.75rem; color: rgba(255,255,255,0.2);
+    }
     .cta-success {
-      display: none; background: rgba(91,138,114,0.1); border: 1px solid rgba(91,138,114,0.2);
-      border-radius: 1rem; padding: 1.5rem; max-width: 28rem; margin: 0 auto;
+      display: none; padding: 24px; border-radius: 14px;
+      background: rgba(91,138,114,0.1); border: 1px solid rgba(91,138,114,0.2);
+      max-width: 420px; margin: 0 auto;
     }
-    .cta-success .check { color: var(--sage); font-weight: 500; }
-    .cta-success .sub { color: rgba(255,255,255,0.4); font-size: 0.875rem; margin-top: 0.25rem; }
+    .cta-success .check { color: var(--sage); font-weight: 600; font-size: 1.0625rem; }
+    .cta-success .sub { color: rgba(255,255,255,0.4); font-size: 0.875rem; margin-top: 4px; }
+    .cta-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(91,138,114,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
 
-    /* Footer */
+    /* ─── Footer ─── */
     footer {
-      padding: 3rem 1.5rem; border-top: 1px solid rgba(232, 228, 221, 0.5);
+      padding: 32px 2rem; border-top: 1px solid rgba(0,0,0,0.06);
+      background: var(--offwhite);
     }
     .footer-inner {
-      max-width: 72rem; margin: 0 auto;
+      max-width: 1120px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .footer-inner .logo span { font-size: 0.875rem; color: rgba(34,34,34,0.6); }
-    .footer-inner p { font-size: 0.75rem; color: rgba(34,34,34,0.3); }
+    .footer-inner .logo-text { font-size: 1rem; }
+    .footer-right {
+      display: flex; align-items: center; gap: 24px;
+      font-size: 0.8125rem; color: rgba(26,26,26,0.35);
+    }
 
-    /* Responsive */
+    /* ─── Responsive ─── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .menu-toggle { display: block; }
-      .hero h1 { font-size: 2.25rem; }
-      .hero p { font-size: 1rem; }
-      .story-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .story-svg { max-width: 280px; margin: 0 auto; }
+      nav { padding: 0 1.25rem; }
+      section { padding: 72px 1.25rem; }
+      .hero { padding: 72px 1.25rem 48px; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero .subtitle { font-size: 1.0625rem; }
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .story-visual { max-width: 320px; margin: 0 auto; }
       .features-grid { grid-template-columns: 1fr; }
-      .section-title { font-size: 1.5rem; }
-      .step { gap: 1.5rem; }
+      .section-title { font-size: 1.75rem; }
       .cta-form { flex-direction: column; }
-      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 8px; }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
       .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .hero h1 { font-size: 3.5rem; }
+      .hero h1 { font-size: 3rem; }
     }
     @media (min-width: 1025px) {
-      .hero h1 { font-size: 4.5rem; }
-      .hero p { font-size: 1.25rem; }
-      section { padding: 8rem 1.5rem; }
+      .hero h1 { font-size: 4rem; }
+      section { padding: 120px 2rem; }
     }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header>
+  <header id="header">
     <nav>
       <a href="#" class="logo">
-        <svg width="34" height="28" viewBox="0 0 48 40" fill="none" aria-hidden="true">
-          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <circle cx="18" cy="12" r="3" fill="#5B8A72" opacity="0.6"/>
-          <circle cx="40" cy="8" r="2.5" fill="#5B8A72" opacity="0.5"/>
-        </svg>
-        <span>mykos</span>
+        <div class="logo-mark">
+          <div class="dot dot-1"></div>
+          <div class="dot dot-2"></div>
+          <div class="dot dot-3"></div>
+          <div class="dot dot-4"></div>
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+        <span class="logo-text">mykos</span>
       </a>
       <div class="nav-links">
         <a href="#story">Story</a>
         <a href="#features">Features</a>
         <a href="#how-it-works">How it works</a>
-        <a href="#cta" class="btn-primary">Get early access</a>
+        <a href="#cta" class="btn btn-primary">Get early access</a>
       </div>
       <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
-        <svg id="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 6h16M4 12h16M4 18h16"/>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
         </svg>
       </button>
     </nav>
@@ -250,153 +458,209 @@
       <a href="#story" onclick="toggleMenu()">Story</a>
       <a href="#features" onclick="toggleMenu()">Features</a>
       <a href="#how-it-works" onclick="toggleMenu()">How it works</a>
-      <a href="#cta" class="btn-primary" onclick="toggleMenu()">Get early access</a>
+      <a href="#cta" class="btn btn-primary" onclick="toggleMenu()">Get early access</a>
     </div>
   </header>
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-bg">
+      <svg width="900" height="900" viewBox="0 0 900 900" fill="none">
+        <circle cx="450" cy="450" r="200" stroke="rgba(91,138,114,0.06)" stroke-width="1"/>
+        <circle cx="450" cy="450" r="320" stroke="rgba(91,138,114,0.04)" stroke-width="1"/>
+        <circle cx="450" cy="450" r="440" stroke="rgba(91,138,114,0.02)" stroke-width="1"/>
+      </svg>
+    </div>
     <div class="hero-inner">
-      <div class="fade-in" style="display:flex;justify-content:center;margin-bottom:2rem;">
-        <svg width="86" height="72" viewBox="0 0 48 40" fill="none" aria-hidden="true">
-          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <circle cx="18" cy="12" r="3.5" fill="#8B7BB5" opacity="0.9"/>
-          <circle cx="40" cy="8" r="3" fill="#7B9EC4" opacity="0.9"/>
-          <circle cx="4" cy="32" r="3" fill="#C4956A" opacity="0.9"/>
-        </svg>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Now in early access
       </div>
-      <h1 class="fade-in-d1">Everyone deserves<br><span class="sage">a chief of staff.</span></h1>
-      <p class="fade-in-d2 serif">Mykos connects the dots, moves things forward, and makes sure nothing falls through the cracks. Your day, handled.</p>
-      <div class="hero-buttons fade-in-d3">
-        <a href="#cta" class="btn-primary btn-primary-lg">Get early access</a>
-        <a href="#story" class="btn-outline">Learn more</a>
+      <h1>Everyone deserves<br><em>a chief of staff.</em></h1>
+      <p class="hero-name-breakdown" style="animation: fadeIn 0.7s ease-out 0.18s forwards; opacity: 0;">
+        <span class="nb-my">my</span><span class="nb-dot">&middot;</span><span class="nb-cos">c<span style="opacity:0.35">hief </span>o<span style="opacity:0.35">f </span>s<span style="opacity:0.35">taff</span></span>
+      </p>
+      <p class="subtitle serif">Mykos connects the dots, moves things forward, and makes sure nothing falls through the cracks. Your day, handled.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn btn-primary btn-primary-lg">Get early access</a>
+        <a href="#story" class="btn btn-secondary">Learn more</a>
       </div>
-      <div class="hero-sub fade-in-d3">
-        <span>My CoS</span>
-        <span class="dot"></span>
-        <span>For everyone</span>
-      </div>
+      <p class="hero-tag">My CoS &nbsp;&middot;&nbsp; For everyone</p>
     </div>
   </section>
 
   <!-- Story -->
-  <section id="story">
-    <div class="story-grid">
-      <div class="story-svg">
-        <svg viewBox="0 0 400 400" width="100%" fill="none">
-          <path d="M80 320 C120 280, 140 200, 200 200" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C260 200, 280 120, 320 80" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C220 240, 280 260, 340 280" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C160 180, 120 140, 80 100" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C180 240, 140 280, 100 300" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C240 180, 300 160, 340 140" stroke="#5B8A72" stroke-width="2" opacity="0.3"/>
-          <path d="M200 200 C200 160, 200 120, 200 80" stroke="#5B8A72" stroke-width="1.5" opacity="0.2"/>
-          <path d="M200 200 C240 220, 280 240, 320 320" stroke="#5B8A72" stroke-width="1.5" opacity="0.2"/>
-          <circle cx="200" cy="200" r="8" fill="#5B8A72" opacity="0.8"/>
-          <circle cx="80" cy="320" r="5" fill="#C4956A" opacity="0.7"/>
-          <circle cx="320" cy="80" r="5" fill="#7B9EC4" opacity="0.7"/>
-          <circle cx="340" cy="280" r="4" fill="#8B7BB5" opacity="0.7"/>
-          <circle cx="80" cy="100" r="4" fill="#C4A07B" opacity="0.7"/>
-          <circle cx="100" cy="300" r="3.5" fill="#7B9EC4" opacity="0.6"/>
-          <circle cx="340" cy="140" r="3.5" fill="#C4956A" opacity="0.6"/>
-          <circle cx="200" cy="80" r="3" fill="#8B7BB5" opacity="0.5"/>
-          <circle cx="320" cy="320" r="3" fill="#C4A07B" opacity="0.5"/>
-        </svg>
-      </div>
-      <div class="story-text">
-        <p class="section-label">Why Mykos</p>
-        <h2 class="section-title">Named after nature's invisible<br>infrastructure.</h2>
-        <p class="serif">Underground fungal networks — mycelium — connect trees, share resources, and keep entire forests alive. No one sees them work. That's the point.</p>
-        <p class="serif">A chief of staff does the same thing for people. They connect the dots, move things forward, and make sure nothing falls through the cracks.</p>
-        <p class="serif">Until now, only CEOs and executives had one. <span class="highlight">Mykos changes that.</span></p>
+  <section id="story" class="story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-visual reveal">
+          <svg viewBox="0 0 400 400" fill="none">
+            <!-- Network lines -->
+            <path d="M120 300 C160 260, 170 220, 200 200" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <path d="M200 200 C230 180, 260 140, 300 100" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <path d="M200 200 C240 220, 280 250, 320 270" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <path d="M200 200 C170 170, 130 140, 100 110" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <path d="M200 200 C190 240, 160 280, 140 310" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <path d="M200 200 C230 190, 270 170, 310 160" stroke="#5B8A72" stroke-width="1.5" opacity="0.25"/>
+            <!-- Nodes -->
+            <circle cx="200" cy="200" r="10" fill="#5B8A72" opacity="0.15"/>
+            <circle cx="200" cy="200" r="5" fill="#5B8A72"/>
+            <circle cx="120" cy="300" r="5" fill="#C4956A" opacity="0.8"/>
+            <circle cx="300" cy="100" r="5" fill="#7B9EC4" opacity="0.8"/>
+            <circle cx="320" cy="270" r="4" fill="#8B7BB5" opacity="0.7"/>
+            <circle cx="100" cy="110" r="4" fill="#C4A07B" opacity="0.7"/>
+            <circle cx="140" cy="310" r="3.5" fill="#7B9EC4" opacity="0.6"/>
+            <circle cx="310" cy="160" r="3.5" fill="#C4956A" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="story-content reveal">
+          <p class="section-label">Why Mykos</p>
+          <h2 class="section-title">Named after nature's<br>invisible infrastructure.</h2>
+          <p class="serif">Underground fungal networks — mycelium — connect trees, share resources, and keep entire forests alive. No one sees them work. That's the point.</p>
+          <p class="serif">A chief of staff does the same thing for people. They connect the dots, move things forward, and make sure nothing falls through the cracks.</p>
+          <p class="serif">Until now, only CEOs and executives had one. <span class="highlight">Mykos changes that.</span></p>
+          <p class="serif" style="margin-top:8px;"><span style="font-family:'JetBrains Mono',monospace; font-size:0.875rem; color:var(--sage); font-weight:500;">my</span><span style="font-family:'JetBrains Mono',monospace; font-size:0.875rem; opacity:0.3;"> &middot; </span><span style="font-family:'JetBrains Mono',monospace; font-size:0.875rem; color:var(--sage); font-weight:500;">cos</span><span style="color:rgba(26,26,26,0.4);"> — your AI chief of staff. For everyone.</span></p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Features -->
   <section id="features" class="features-section">
-    <div class="features-header">
-      <p class="section-label">Features</p>
-      <h2 class="section-title">Your invisible infrastructure.</h2>
+    <div class="container">
+      <div class="features-header reveal">
+        <p class="section-label">What it does</p>
+        <h2 class="section-title">Your invisible infrastructure.</h2>
+        <p class="section-subtitle">Everything a great chief of staff does — connecting, organizing, anticipating — now powered by AI.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7B9EC4" stroke-width="2" stroke-linecap="round">
+              <circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="12" cy="18" r="3"/>
+              <path d="M8.5 7.5L10.5 16M15.5 7.5L13.5 16M8 6h8"/>
+            </svg>
+          </div>
+          <h3>Connect the dots</h3>
+          <p class="serif">Sees across your calendar, email, tasks, and conversations — surfacing what matters and linking related threads.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B7BB5" stroke-width="2" stroke-linecap="round">
+              <path d="M5 12h14M19 12l-4-4M19 12l-4 4"/>
+            </svg>
+          </div>
+          <h3>Move things forward</h3>
+          <p class="serif">Automatic follow-ups, gentle nudges, and smart scheduling. Keeps your projects and relationships in motion.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon terra">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Nothing falls through</h3>
+          <p class="serif">Every commitment tracked, every loose end flagged. Remembers what you said you'd do — and makes sure it happens.</p>
+        </div>
+      </div>
     </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="8" cy="8" r="3" fill="#7B9EC4" opacity="0.7"/>
-          <circle cx="24" cy="8" r="3" fill="#8B7BB5" opacity="0.7"/>
-          <circle cx="16" cy="24" r="3" fill="#C4956A" opacity="0.7"/>
-          <path d="M8 8L24 8M8 8L16 24M24 8L16 24" stroke="#5B8A72" stroke-width="1.5" opacity="0.4"/>
-        </svg>
-        <h3>Connect the dots</h3>
-        <p class="serif">Mykos sees across your calendar, email, tasks, and conversations — surfacing what matters and linking related threads together.</p>
+  </section>
+
+  <!-- Examples -->
+  <section id="examples" class="examples-section">
+    <div class="container">
+      <div class="examples-header reveal">
+        <p class="section-label">See it in action</p>
+        <h2 class="section-title">Hey Mykos...</h2>
+        <p class="section-subtitle serif">A few things you might say to your chief of staff — and how Mykos responds.</p>
       </div>
-      <div class="feature-card">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M6 16H26M26 16L20 10M26 16L20 22" stroke="#5B8A72" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <h3>Move things forward</h3>
-        <p class="serif">Automatic follow-ups, gentle nudges, and smart scheduling. Mykos keeps your projects and relationships moving without you having to chase.</p>
-      </div>
-      <div class="feature-card">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="10" stroke="#5B8A72" stroke-width="2" opacity="0.4"/>
-          <path d="M12 16L15 19L21 13" stroke="#5B8A72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h3>Nothing falls through</h3>
-        <p class="serif">Every commitment tracked, every loose end flagged. Mykos remembers what you said you'd do — and makes sure it happens.</p>
-      </div>
-      <div class="feature-card">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 6C16 6 8 12 8 18C8 24 12 26 16 26C20 26 24 24 24 18C24 12 16 6 16 6Z" stroke="#5B8A72" stroke-width="2" opacity="0.4"/>
-          <circle cx="16" cy="18" r="2" fill="#C4956A" opacity="0.7"/>
-        </svg>
-        <h3>The quiet force</h3>
-        <p class="serif">Like mycelium, Mykos works in the background. No noise, no clutter — just the right information at the right time.</p>
+      <div class="examples-grid">
+
+        <div class="example-card reveal">
+          <div class="example-label">Morning briefing</div>
+          <div class="example-user">
+            <div class="example-avatar">You</div>
+            <div class="example-msg">Hey Mykos, what does my day look like?</div>
+          </div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">You've got <strong>3 meetings today</strong> — the first at 10am with the design team. You promised Sarah a draft by noon, and there's a payment due on your AWS account. I've blocked 90 minutes of focus time this afternoon for deep work.</div>
+          </div>
+        </div>
+
+        <div class="example-card reveal">
+          <div class="example-label">Follow-up tracking</div>
+          <div class="example-user">
+            <div class="example-avatar">You</div>
+            <div class="example-msg">Did Alex ever get back to me about the partnership proposal?</div>
+          </div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">Not yet — it's been <strong>4 days since you sent it</strong>. Want me to send a gentle follow-up? I can draft something casual and queue it for tomorrow morning so it doesn't feel pushy.</div>
+          </div>
+        </div>
+
+        <div class="example-card reveal">
+          <div class="example-label">Staying on top of things</div>
+          <div class="example-user">
+            <div class="example-avatar">You</div>
+            <div class="example-msg">I'm overwhelmed. What should I actually focus on right now?</div>
+          </div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">Based on your deadlines and energy patterns, I'd suggest: <strong>finish the investor deck</strong> (due Thursday), then <strong>reply to the 2 urgent emails</strong> I've flagged. Everything else can wait. I've already rescheduled your 3pm call to Friday.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- How it works -->
-  <section id="how-it-works">
-    <div class="steps">
-      <div class="steps-header">
+  <section id="how-it-works" class="how-section">
+    <div class="container">
+      <div class="how-header reveal">
         <p class="section-label">How it works</p>
         <h2 class="section-title">Three steps to clarity.</h2>
+        <p class="section-subtitle">Set up once, then let Mykos do what a great chief of staff does — quietly and reliably.</p>
       </div>
-      <div class="step">
-        <div class="step-num blue mono">01</div>
-        <div>
-          <h3>Connect your world</h3>
-          <p class="serif">Link your calendar, email, and tools. Mykos maps the relationships between your tasks, people, and commitments.</p>
+      <div class="steps-grid">
+        <div class="step-item reveal">
+          <div class="step-number n1 mono">01</div>
+          <div class="step-content">
+            <h3>Connect your world</h3>
+            <p class="serif">Link your calendar, email, and tools. Mykos maps the relationships between your tasks, people, and commitments.</p>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num purple mono">02</div>
-        <div>
-          <h3>Let it learn</h3>
-          <p class="serif">Mykos quietly observes how you work — your priorities, your patterns, your preferences. It adapts to you, not the other way around.</p>
+        <div class="step-item reveal">
+          <div class="step-number n2 mono">02</div>
+          <div class="step-content">
+            <h3>Let it learn</h3>
+            <p class="serif">Mykos observes how you work — your priorities, patterns, and preferences. It adapts to you, not the other way around.</p>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num terra mono">03</div>
-        <div>
-          <h3>Stay in flow</h3>
-          <p class="serif">Get proactive briefings, smart reminders, and contextual suggestions. Everything you need, nothing you don't.</p>
+        <div class="step-item reveal">
+          <div class="step-number n3 mono">03</div>
+          <div class="step-content">
+            <h3>Stay in flow</h3>
+            <p class="serif">Get proactive briefings, smart reminders, and contextual suggestions. Everything you need, nothing you don't.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section id="cta" class="cta">
+  <section id="cta" class="cta-section">
+    <div class="cta-glow"></div>
     <div class="cta-inner">
-      <p class="section-label">Early access</p>
+      <p class="section-label" style="color: rgba(91,138,114,0.8);">Early access</p>
       <h2 class="section-title">Your day, handled.</h2>
-      <p class="desc serif">Join the waitlist and be among the first to experience what it's like to have a chief of staff working quietly behind the scenes.</p>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.4); margin: 12px auto 32px;">Join the waitlist and be among the first to experience what it's like to have a chief of staff working quietly behind the scenes.</p>
       <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event)">
-        <input type="email" placeholder="Enter your email" required>
-        <button type="submit" class="btn-primary btn-primary-lg">Join waitlist</button>
+        <input type="email" placeholder="you@email.com" required aria-label="Email address">
+        <button type="submit" class="btn-cta">Join waitlist</button>
       </form>
       <div class="cta-success" id="cta-success">
         <p class="check">You're on the list.</p>
@@ -410,29 +674,52 @@
   <footer>
     <div class="footer-inner">
       <a href="#" class="logo">
-        <svg width="24" height="20" viewBox="0 0 48 40" fill="none" aria-hidden="true">
-          <path d="M4 32 C10 32, 12 12, 18 12 C24 12, 22 28, 28 28 C34 28, 34 8, 40 8" stroke="#5B8A72" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M28 28 C32 28, 36 18, 44 16" stroke="#5B8A72" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-          <circle cx="18" cy="12" r="3" fill="#5B8A72" opacity="0.6"/>
-          <circle cx="40" cy="8" r="2.5" fill="#5B8A72" opacity="0.5"/>
-        </svg>
-        <span>mykos</span>
+        <div class="logo-mark" style="width:24px;height:24px;">
+          <div class="dot dot-1" style="width:6px;height:6px;top:3px;left:9px;"></div>
+          <div class="dot dot-2" style="width:4px;height:4px;top:10px;left:3px;"></div>
+          <div class="dot dot-3" style="width:4px;height:4px;top:10px;left:17px;"></div>
+          <div class="dot dot-4" style="width:3px;height:3px;top:18px;left:11px;"></div>
+        </div>
+        <span class="logo-text">mykos</span>
       </a>
-      <p>The quiet force behind your day.</p>
-      <p>&copy; 2026 Mykos. All rights reserved.</p>
+      <div class="footer-right">
+        <span>The quiet force behind your day.</span>
+        <span>&copy; 2026 Mykos</span>
+      </div>
     </div>
   </footer>
 
   <script>
+    // Mobile menu toggle
     function toggleMenu() {
       var menu = document.getElementById('mobile-menu');
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     }
+
+    // Waitlist form
     function handleSubmit(e) {
       e.preventDefault();
       document.getElementById('cta-form').style.display = 'none';
       document.getElementById('cta-success').style.display = 'block';
+      document.querySelector('.cta-note').style.display = 'none';
     }
+
+    // Header scroll shadow
+    window.addEventListener('scroll', function() {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Reveal on scroll
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(function(el) { observer.observe(el); });
   </script>
 
 </body>
