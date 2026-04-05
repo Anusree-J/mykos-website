@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mykos — Everyone deserves a chief of staff</title>
-  <meta name="description" content="Mykos is your AI chief of staff. It connects the dots, moves things forward, and makes sure nothing falls through the cracks.">
+  <meta name="description" content="AI made you capable of doing the work of five people. Mykos is your AI chief of staff — making sure nothing gets lost in the process.">
   <meta property="og:title" content="Mykos — Everyone deserves a chief of staff">
-  <meta property="og:description" content="Your AI chief of staff that connects the dots, moves things forward, and handles your day.">
+  <meta property="og:description" content="AI made you capable of doing more. Mykos makes sure nothing gets lost in the process.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -200,6 +200,14 @@
       animation: fadeIn 0.7s ease-out 0.55s forwards; opacity: 0;
     }
 
+    /* ─── Data Strip ─── */
+    .data-strip {
+      padding: 48px 2rem;
+      background: var(--stone-light);
+      border-top: 1px solid rgba(0,0,0,0.04);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
     /* ─── Examples / Demo ─── */
     .examples-section { background: var(--offwhite); }
     .examples-header { text-align: center; margin-bottom: 56px; }
@@ -308,6 +316,10 @@
     }
     .feature-card p {
       font-size: 0.9375rem; color: rgba(26,26,26,0.5); line-height: 1.6;
+    }
+    .feature-feeling {
+      font-style: italic; margin-top: 12px; font-size: 0.8125rem !important;
+      color: rgba(26,26,26,0.35) !important; line-height: 1.55;
     }
 
     /* ─── How it works ─── */
@@ -483,7 +495,7 @@
       <p class="hero-name-breakdown" style="animation: fadeIn 0.7s ease-out 0.18s forwards; opacity: 0;">
         <span class="nb-my">my</span><span class="nb-dot">&middot;</span><span class="nb-cos">c<span class="faded">hief&nbsp;</span>o<span class="faded">f&nbsp;</span>s<span class="faded">taff</span></span>
       </p>
-      <p class="subtitle serif">Mykos connects the dots, moves things forward, and makes sure nothing falls through the cracks. Your day, handled.</p>
+      <p class="subtitle serif">AI made you capable of doing the work of five people. Mykos makes sure nothing gets lost in the process.</p>
       <div class="hero-actions">
         <a href="#cta" class="btn btn-primary btn-primary-lg">Get early access</a>
         <a href="#story" class="btn btn-secondary">Learn more</a>
@@ -491,6 +503,14 @@
       <p class="hero-tag">my·cos = my chief of staff</p>
     </div>
   </section>
+
+  <!-- Data Strip -->
+  <div class="data-strip">
+    <div class="container" style="text-align:center;">
+      <p class="serif" style="font-size:1.0625rem; font-style:italic; color:rgba(26,26,26,0.45); max-width:640px; margin:0 auto; line-height:1.7;">"Employees worked at a faster pace, took on a broader scope of tasks, and extended work into more hours of the day."</p>
+      <p style="font-size:0.75rem; color:rgba(26,26,26,0.25); margin-top:10px; font-weight:500; letter-spacing:0.05em;">HARVARD BUSINESS REVIEW, 2026</p>
+    </div>
+  </div>
 
   <!-- Story -->
   <section id="story" class="story-section">
@@ -521,7 +541,10 @@
           <h2 class="section-title">Named after nature's<br>invisible infrastructure.</h2>
           <p class="serif">Underground fungal networks — mycelium — connect trees, share resources, and keep entire forests alive. No one sees them work. That's the point.</p>
           <p class="serif">A chief of staff does the same thing for people. They connect the dots, move things forward, and make sure nothing falls through the cracks.</p>
-          <p class="serif">Until now, only CEOs and executives had one. <span class="highlight">Mykos changes that.</span></p>
+          <p class="serif" style="margin-top:20px;"><span class="highlight">Here's what changed.</span></p>
+          <p class="serif">AI didn't reduce your workload — it expanded it. People work faster, take on broader tasks, and stretch into more hours. Engineers are doing design. PMs are writing code. Everyone's becoming a specialized generalist — more capable than ever, but tracking 500 threads.</p>
+          <p class="serif">That's a problem only CEOs used to have. And CEOs have chiefs of staff. Executive assistants. Support infrastructure.</p>
+          <p class="serif"><span class="highlight">You don't. Until now.</span></p>
           <p style="margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:1.125rem; color:var(--sage); font-weight:600; letter-spacing:0.04em;">my<span style="opacity:0.3; margin:0 4px;">&middot;</span>c<span style="opacity:0.3; font-weight:400;">hief&nbsp;</span>o<span style="opacity:0.3; font-weight:400;">f&nbsp;</span>s<span style="opacity:0.3; font-weight:400;">taff</span></p>
           <p style="margin-top:4px; color:rgba(26,26,26,0.5); font-size:0.9rem;" class="serif">Your AI chief of staff. For everyone.</p>
         </div>
@@ -547,6 +570,7 @@
           </div>
           <h3>Connect the dots</h3>
           <p class="serif">Sees across your calendar, email, tasks, and conversations — surfacing what matters and linking related threads.</p>
+          <p class="serif feature-feeling">Because when you're wearing five hats, no single app has the full picture.</p>
         </div>
         <div class="feature-card reveal">
           <div class="feature-icon purple">
@@ -556,6 +580,7 @@
           </div>
           <h3>Move things forward</h3>
           <p class="serif">Automatic follow-ups, gentle nudges, and smart scheduling. Keeps your projects and relationships in motion.</p>
+          <p class="serif feature-feeling">Because the thing you forgot to reply to on Tuesday becomes the crisis on Friday.</p>
         </div>
         <div class="feature-card reveal">
           <div class="feature-icon terra">
@@ -566,6 +591,7 @@
           </div>
           <h3>Nothing falls through</h3>
           <p class="serif">Every commitment tracked, every loose end flagged. Remembers what you said you'd do — and makes sure it happens.</p>
+          <p class="serif feature-feeling">Because you said "I'll send that over" in a Slack message three days ago — and you haven't.</p>
         </div>
       </div>
     </div>
@@ -606,14 +632,34 @@
         </div>
 
         <div class="example-card reveal">
-          <div class="example-label">Staying on top of things</div>
+          <div class="example-label">It noticed before you did</div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">Hey — quick flag. You told Jamie you'd share the updated roadmap by Monday. It's now Tuesday afternoon and it hasn't gone out. I've drafted a short message. <strong>Want to review it?</strong></div>
+          </div>
           <div class="example-user">
             <div class="example-avatar">You</div>
-            <div class="example-msg">I'm overwhelmed. What should I actually focus on right now?</div>
+            <div class="example-msg">Oh damn. Yes, send me the draft.</div>
           </div>
           <div class="example-reply">
             <div class="example-avatar mykos-av">M</div>
-            <div class="example-msg serif">Based on your deadlines and energy patterns, I'd suggest: <strong>finish the investor deck</strong> (due Thursday), then <strong>reply to the 2 urgent emails</strong> I've flagged. Everything else can wait. I've already rescheduled your 3pm call to Friday.</div>
+            <div class="example-msg serif">Here you go. I kept it casual — no need to over-explain. Just confirm and <strong>I'll send it in 2 minutes</strong>, or edit it first.</div>
+          </div>
+        </div>
+
+        <div class="example-card reveal">
+          <div class="example-label">Your morning intel</div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">Two things before your day starts. First — <strong>a competitor just shipped a feature</strong> similar to what your team is building. I've pulled the details. Second — there's a new NIST guideline on post-quantum migration that's relevant to your security workstream. Both are in your briefing.</div>
+          </div>
+          <div class="example-user">
+            <div class="example-avatar">You</div>
+            <div class="example-msg">Pull up the competitor thing.</div>
+          </div>
+          <div class="example-reply">
+            <div class="example-avatar mykos-av">M</div>
+            <div class="example-msg serif">Here's what they shipped, here's how it overlaps with your roadmap, and here's what's different. <strong>Want me to flag this for your next team sync?</strong></div>
           </div>
         </div>
 
@@ -627,28 +673,28 @@
       <div class="how-header reveal">
         <p class="section-label">How it works</p>
         <h2 class="section-title">Three steps to clarity.</h2>
-        <p class="section-subtitle">Set up once, then let Mykos do what a great chief of staff does — quietly and reliably.</p>
+        <p class="section-subtitle">Not another settings page. Mykos starts like a chief of staff on their first day.</p>
       </div>
       <div class="steps-grid">
         <div class="step-item reveal">
           <div class="step-number n1 mono">01</div>
           <div class="step-content">
-            <h3>Connect your world</h3>
-            <p class="serif">Link your calendar, email, and tools. Mykos maps the relationships between your tasks, people, and commitments.</p>
+            <h3>Tell it everything</h3>
+            <p class="serif">Mykos starts with a conversation, not a settings page. In 15 minutes, it learns your workstreams, your people, your priorities, and the things you tend to drop.</p>
           </div>
         </div>
         <div class="step-item reveal">
           <div class="step-number n2 mono">02</div>
           <div class="step-content">
-            <h3>Let it learn</h3>
-            <p class="serif">Mykos observes how you work — your priorities, patterns, and preferences. It adapts to you, not the other way around.</p>
+            <h3>Let it shadow you</h3>
+            <p class="serif">Connect your email, calendar, and tools. Mykos maps the relationships between your tasks, people, and commitments — and starts noticing what you miss.</p>
           </div>
         </div>
         <div class="step-item reveal">
           <div class="step-number n3 mono">03</div>
           <div class="step-content">
-            <h3>Stay in flow</h3>
-            <p class="serif">Get proactive briefings, smart reminders, and contextual suggestions. Everything you need, nothing you don't.</p>
+            <h3>Get your mornings back</h3>
+            <p class="serif">Every day starts with a briefing — not a notification dump, but a memo from someone who understands your work. What needs you, what's going cold, what's happening in the world.</p>
           </div>
         </div>
       </div>
@@ -660,8 +706,8 @@
     <div class="cta-glow"></div>
     <div class="cta-inner">
       <p class="section-label" style="color: rgba(91,138,114,0.8);">Early access</p>
-      <h2 class="section-title">Your day, handled.</h2>
-      <p class="section-subtitle" style="color:rgba(255,255,255,0.4); margin: 12px auto 32px;">Join the waitlist and be among the first to experience what it's like to have a chief of staff working quietly behind the scenes.</p>
+      <h2 class="section-title">You're doing more than ever.<br>You deserve the support to match.</h2>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.4); margin: 12px auto 32px;">Join the waitlist and be among the first to have a chief of staff that actually knows your work.</p>
       <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event)">
         <input type="email" placeholder="you@email.com" required aria-label="Email address">
         <button type="submit" class="btn-cta">Join waitlist</button>
