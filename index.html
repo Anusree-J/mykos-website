@@ -398,6 +398,43 @@
       pointer-events: none;
     }
 
+    /* ─── For You ─── */
+    .foryou-section {
+      background: var(--stone-light); padding: 100px 2rem;
+    }
+    .foryou-header { text-align: center; margin-bottom: 56px; }
+    .foryou-header .section-subtitle { margin-left: auto; margin-right: auto; }
+    .foryou-grid {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    }
+    .foryou-card {
+      background: var(--offwhite); border-radius: 16px; padding: 28px 32px;
+      border: 1px solid rgba(0,0,0,0.04);
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: transform 0.25s ease;
+    }
+    .foryou-card:hover { transform: translateY(-3px); }
+    .foryou-icon {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .foryou-card p {
+      font-size: 1rem; color: rgba(26,26,26,0.6); line-height: 1.65;
+    }
+    .foryou-card strong { color: var(--charcoal); font-weight: 600; }
+    .foryou-closer {
+      text-align: center; margin-top: 40px;
+      font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em;
+      color: var(--charcoal);
+    }
+    @media (max-width: 768px) {
+      .foryou-grid { grid-template-columns: 1fr; }
+      .foryou-card { padding: 20px 24px; }
+      .foryou-section { padding: 72px 1.25rem; }
+    }
+
     /* ─── Footer ─── */
     footer {
       padding: 32px 2rem; border-top: 1px solid rgba(0,0,0,0.06);
@@ -698,6 +735,43 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- For You -->
+  <section class="foryou-section">
+    <div class="container">
+      <div class="foryou-header reveal">
+        <p class="section-label">Who it's for</p>
+        <h2 class="section-title">Mykos is for everyone.</h2>
+      </div>
+      <div class="foryou-grid">
+        <div class="foryou-card reveal">
+          <div class="foryou-icon" style="background:rgba(196,149,106,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <p class="serif"><strong>The founder</strong> doing product, fundraising, and hiring all at once.</p>
+        </div>
+        <div class="foryou-card reveal">
+          <div class="foryou-icon" style="background:rgba(123,158,196,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7B9EC4" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+          </div>
+          <p class="serif"><strong>The engineer</strong> who's also doing design, DevOps, and half the PM work.</p>
+        </div>
+        <div class="foryou-card reveal">
+          <div class="foryou-icon" style="background:rgba(139,123,181,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B7BB5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <p class="serif"><strong>The operator</strong> keeping twelve workstreams alive on sticky notes and prayers.</p>
+        </div>
+        <div class="foryou-card reveal">
+          <div class="foryou-icon" style="background:rgba(91,138,114,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5B8A72" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <p class="serif"><strong>The 9-to-5er</strong> building something on the side after hours.</p>
+        </div>
+      </div>
+      <p class="foryou-closer reveal serif">If you're doing more than your job title suggests — <em>Mykos was built for you.</em></p>
     </div>
   </section>
 
